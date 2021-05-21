@@ -1,19 +1,20 @@
 from flask import Blueprint, jsonify, request
+from . import mongo
 
 main = Blueprint("main", __name__)
-movie_list = []
+users = mongo.db.users
 
 @main.route("/")
 def homepage():
 	return "welcome to homepage"
 
-@main.route("/add_movie", methods=["POST"])
-def add_movie():
-	new_movie = request.get_json()
-	movie_list.append(new_movie)
-	print("movie list", movie_list)
-	return jsonify(movie_list)
+@main.route("/add_user", methods=["POST"])
+def add_user():
+	new_user = request.get_json()
+	print("db users", users)
+	# user= users.insert_one(new_user)
+	return jsonify(new_user)
 
-@main.route("/movies")
-def movies():
-	return jsonify(movie_list)
+@main.route("/users")
+def users():
+	return jsonify("qwe")
